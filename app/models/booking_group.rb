@@ -22,7 +22,7 @@ class BookingGroup < ApplicationRecord
 
   # Ao confirmar, cria os eventos na Google Agenda da owner (assíncrono).
   # Cobre os dois caminhos de confirmação:
-  #  - Pix: grupo criado "pending" e confirmado depois (update, via webhook).
+  #  - Pix/cartão: grupo criado "pending" e confirmado depois (update, via webhook).
   #  - Crédito / reserva manual do admin: grupo já nasce/vira "confirmed" na
   #    mesma transação (o Rails trata como commit de criação).
   after_commit :sync_google_calendar_on_confirm, on: [ :create, :update ]
@@ -49,7 +49,7 @@ class BookingGroup < ApplicationRecord
   def sync_google_calendar_on_confirm
     return unless confirmed?
     # Dispara quando a reserva acaba de ser criada já confirmada (crédito/admin)
-    # ou quando o status muda para confirmada (Pix). Evita re-sincronizar a cada
+    # ou quando o status muda para confirmada (Pix/cartão). Evita re-sincronizar a cada
     # atualização de um grupo que já estava confirmado.
     return unless id_previously_changed? || saved_change_to_status?
 
@@ -70,7 +70,7 @@ class BookingGroup < ApplicationRecord
     end
   end
 
-  # Crédito usado nesta reserva = total − o que faltava pagar por fora (Pix).
+  # Crédito usado nesta reserva = total − o que faltava pagar por fora (Pix/cartão).
   def refund_applied_credit!
     external_due = payments.where.not(gateway: "credit").sum(:amount_cents)
     applied      = total_cents.to_i - external_due.to_i

@@ -15,6 +15,11 @@
     <p><strong class="text-vdc-foreground">Valor:</strong>
       <span class="font-medium text-vdc-primary">R$ <%= money(@payment.amount_cents) %></span>
     </p>
+    <% if @payment.gateway == "infinitepay" %>
+      <p><strong class="text-vdc-foreground">Forma de pagamento:</strong>
+        <%= @payment.capture_method == "credit_card" ? "Cartão de crédito" : "Pix" %>
+      </p>
+    <% end %>
     <p><strong class="text-vdc-foreground">Gateway ID:</strong>
       <span class="font-mono text-xs text-vdc-foreground"><%= @payment.gateway_id %></span>
     </p>

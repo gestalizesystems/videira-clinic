@@ -37,7 +37,7 @@ class Payments::PaymentsController < ApplicationController
         PaymentConfirmer.call_from_webhook(
           "order_nsu"       => params[:order_nsu],
           "transaction_nsu" => params[:transaction_nsu],
-          "capture_method"  => "pix",
+          "capture_method"  => result.value["capture_method"],
           "paid_amount"     => result.value["paid_amount"]
         )
         @payment.reload
@@ -90,7 +90,8 @@ class Payments::PaymentsController < ApplicationController
       if result.success? && result.value["paid"]
         DifferencePaymentConfirmer.call_from_webhook(
           "order_nsu"       => params[:order_nsu],
-          "transaction_nsu" => params[:transaction_nsu]
+          "transaction_nsu" => params[:transaction_nsu],
+          "capture_method"  => result.value["capture_method"]
         )
         payment.reload
       end

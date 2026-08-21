@@ -30,8 +30,8 @@ class PaymentConfirmer < ApplicationService
 
   private
 
-  # Pix pago depois da expiração: vira crédito na conta da pessoa.
-  # Idempotente — não credita duas vezes se o webhook repetir.
+  # Pagamento (Pix ou cartão) que chegou depois da expiração: vira crédito na
+  # conta da pessoa. Idempotente — não credita duas vezes se o webhook repetir.
   def credit_late_payment(group)
     payment = group.payment
     if payment.nil? || payment.paid? || Credit.exists?(source_booking_group: group)
@@ -42,7 +42,7 @@ class PaymentConfirmer < ApplicationService
       payment.update!(status: "paid", paid_at: Time.current)
       result = CreditIssuer.call(
         booking_group: group,
-        reason: "Pagamento Pix recebido após expiração da reserva — convertido em crédito"
+        reason: "Pagamento recebido após expiração da reserva — convertido em crédito"
       )
       raise ActiveRecord::Rollback unless result.success? && result.value
       result.value
@@ -73,15 +73,18 @@ class PaymentConfirmer < ApplicationService
   # Confirma a partir do payload do webhook InfinitePay.
   # order_nsu = booking_group.id (passamos ao criar o checkout)
   def self.call_from_webhook(payload)
-    order_nsu = payload["order_nsu"]
-    return unless order_nsu.present? && payload["capture_method"] == "pix"
+    order_nsu      = payload["order_nsu"]
+    capture_method = payload["capture_method"]
+    return unless order_nsu.present? && Payment::CAPTURE_METHODS.include?(capture_method)
 
     result = call(external_reference: order_nsu)
 
-    # Atualiza gateway_id com o transaction_nsu retornado pelo webhook
-    if result.success? && payload["transaction_nsu"].present?
-      group = BookingGroup.find_by(id: order_nsu)
-      group&.payment&.update_columns(gateway_id: payload["transaction_nsu"])
+    # Registra o método (Pix/cartão) e o transaction_nsu retornado pelo webhook
+    if result.success?
+      group   = BookingGroup.find_by(id: order_nsu)
+      updates = { capture_method: capture_method }
+      updates[:gateway_id] = payload["transaction_nsu"] if payload["transaction_nsu"].present?
+      group&.payment&.update_columns(**updates)
     end
 
     result

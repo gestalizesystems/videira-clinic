@@ -47,8 +47,8 @@ RSpec.describe "Booking flow", type: :system do
       expect(page).to have_content("Confirmar reserva")
 
       click_button "Pagar"
-      expect(page).to have_content("Pagamento via Pix")
-      expect(page).to have_content("Pagar via Pix no InfinitePay")
+      expect(page).to have_content("Pagamento da Reserva")
+      expect(page).to have_content("Pagar no InfinitePay")
     end
   end
 end

@@ -19,7 +19,7 @@ class AdminBookingSlotChanger < ApplicationService
     difference_attrs  = nil
 
     if diff.positive?
-      # Usa crédito disponível e cobra o restante via Pix.
+      # Usa crédito disponível e cobra o restante via checkout (Pix ou cartão).
       available         = Credit.balance_for(user: group.dentist, clinic: group.clinic)
       credit_to_consume = [ diff, available ].min
       remaining         = diff - credit_to_consume

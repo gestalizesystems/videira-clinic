@@ -4,6 +4,10 @@ class Payment < ApplicationRecord
 
   has_paper_trail
 
+  # Métodos de captura aceitos no checkout InfinitePay — Pix e cartão de
+  # crédito recebem o mesmo tratamento (confirmação, Agenda, crédito etc.).
+  CAPTURE_METHODS = %w[pix credit_card].freeze
+
   belongs_to :clinic
   belongs_to :booking_group
 
