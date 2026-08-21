@@ -1,5 +1,5 @@
 module InfinitePay
-  # Cria um checkout Pix no InfinitePay para uma RECARGA DE CRÉDITO (sem reserva).
+  # Cria um checkout (Pix ou cartão) no InfinitePay para uma RECARGA DE CRÉDITO (sem reserva).
   # order_nsu = credit_purchase.id, usado pelo webhook/retorno para confirmar.
   class CreditCheckoutCreator < ApplicationService
     BASE_URL = "https://api.checkout.infinitepay.io".freeze

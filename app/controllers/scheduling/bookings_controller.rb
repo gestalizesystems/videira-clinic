@@ -105,7 +105,7 @@ class Scheduling::BookingsController < ApplicationController
         session.delete(:cart_ids)
         session.delete(:cart_extras)
         redirect_to pagamento_path(result.value.payment),
-          notice: "Reserva criada! Conclua o pagamento via Pix."
+          notice: "Reserva criada! Conclua o pagamento."
       else
         redirect_to confirmar_reservas_path, alert: result.error
       end
@@ -134,7 +134,7 @@ class Scheduling::BookingsController < ApplicationController
     if result.success?
       if result.value[:charge_created]
         payment = result.value[:group].payments.order(:created_at).last
-        redirect_to pagamento_path(payment), notice: "Turno alterado! Conclua o pagamento da diferença via Pix."
+        redirect_to pagamento_path(payment), notice: "Turno alterado! Conclua o pagamento da diferença."
       else
         redirect_to reservas_path, notice: "Turno alterado com sucesso."
       end

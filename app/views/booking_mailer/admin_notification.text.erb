@@ -10,12 +10,12 @@ Turnos reservados:
 Total: R$ <%= "%.2f" % (@group.total_cents / 100.0) %>
 
 Forma de pagamento:
-<% gateway = @group.payments.first&.gateway %>
-<%= case gateway
-    when "infinitepay" then "Pix"
-    when "credit"      then "Crédito do cliente"
-    when "admin"       then "Manual (admin)"
-    else gateway.to_s.humanize
+<% payment = @group.payments.first %>
+<%= case payment&.gateway
+    when "infinitepay" then payment.capture_method == "credit_card" ? "Cartão de crédito" : "Pix"
+    when "credit"       then "Crédito do cliente"
+    when "admin"        then "Manual (admin)"
+    else payment&.gateway.to_s.humanize
     end %>
 
 Videira Clinic

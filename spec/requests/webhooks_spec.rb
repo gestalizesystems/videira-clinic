@@ -43,9 +43,21 @@ RSpec.describe "Webhooks", type: :request do
       expect(group.reload.status).to eq("pending")
     end
 
-    it "ignores non-pix capture methods" do
-      card_payload = { order_nsu: group.id, capture_method: "credit_card", paid_amount: 1000 }.to_json
+    it "confirms credit card payments the same as pix" do
+      card_payload = { order_nsu: group.id, capture_method: "credit_card", paid_amount: payment.amount_cents }.to_json
       post infinitepay_webhook_path, params: card_payload, headers: headers
+      expect(group.reload.status).to eq("confirmed")
+      expect(payment.reload.capture_method).to eq("credit_card")
+    end
+
+    it "records the capture method on the payment" do
+      post infinitepay_webhook_path, params: payload, headers: headers
+      expect(payment.reload.capture_method).to eq("pix")
+    end
+
+    it "ignores unrecognized capture methods" do
+      bad_payload = { order_nsu: group.id, capture_method: "boleto", paid_amount: payment.amount_cents }.to_json
+      post infinitepay_webhook_path, params: bad_payload, headers: headers
       expect(group.reload.status).to eq("pending")
     end
   end

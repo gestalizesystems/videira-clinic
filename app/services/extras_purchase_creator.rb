@@ -1,5 +1,5 @@
 # Compra de insumos (Videira Shop) vinculada a uma reserva confirmada já
-# existente. Cria um pagamento Pix avulso; os insumos só são anexados à reserva
+# existente. Cria um pagamento avulso (Pix ou cartão); os insumos só são anexados à reserva
 # quando o pagamento é confirmado (guardados no próprio pagamento até lá).
 class ExtrasPurchaseCreator < ApplicationService
   def initialize(booking_group:, extras:)

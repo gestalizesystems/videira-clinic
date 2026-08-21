@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Checkout: crédito é opcional (checkbox liga/desliga). Quando o crédito cobre
-// o total, a forma Pix some — pagamento 100% com crédito.
+// o total, o bloco de checkout (Pix/cartão) some — pagamento 100% com crédito.
 export default class extends Controller {
   static targets = ["input", "toggle", "dot", "amountWrap", "usedField", "usedRow", "usedAmount", "due", "pix", "submit"]
   static values  = { total: Number, balance: Number }

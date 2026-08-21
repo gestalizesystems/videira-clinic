@@ -67,7 +67,7 @@ class Scheduling::CartsController < ApplicationController
   end
 
   # Compra de insumos avulsa: vincula a uma reserva confirmada existente e gera
-  # um pagamento Pix só dos insumos.
+  # um pagamento (Pix ou cartão) só dos insumos.
   def purchase_extras
     return redirect_to(new_user_session_path, alert: "Faça login para comprar insumos.") unless user_signed_in?
 
@@ -82,7 +82,7 @@ class Scheduling::CartsController < ApplicationController
     result = ExtrasPurchaseCreator.call(booking_group: group, extras: extras)
     if result.success?
       session.delete(:cart_extras)
-      redirect_to pagamento_path(result.value), notice: "Insumos vinculados! Conclua o pagamento via Pix."
+      redirect_to pagamento_path(result.value), notice: "Insumos vinculados! Conclua o pagamento."
     else
       redirect_to carrinho_path, alert: result.error
     end

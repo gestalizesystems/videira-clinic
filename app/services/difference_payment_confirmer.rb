@@ -36,8 +36,11 @@ class DifferencePaymentConfirmer < ApplicationService
 
     result = call(payment: payment)
 
-    if result.success? && payload["transaction_nsu"].present?
-      payment.update_columns(gateway_id: payload["transaction_nsu"])
+    if result.success?
+      updates = {}
+      updates[:capture_method] = payload["capture_method"] if Payment::CAPTURE_METHODS.include?(payload["capture_method"])
+      updates[:gateway_id]     = payload["transaction_nsu"] if payload["transaction_nsu"].present?
+      payment.update_columns(**updates) if updates.present?
     end
 
     result

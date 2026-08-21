@@ -1,5 +1,5 @@
 module InfinitePay
-  # Cria um checkout Pix para a DIFERENÇA de valor ao alterar uma reserva.
+  # Cria um checkout (Pix ou cartão) para a DIFERENÇA de valor ao alterar uma reserva.
   # order_nsu = id do Payment de diferença (passado explicitamente).
   class DifferenceCheckoutCreator < ApplicationService
     BASE_URL = "https://api.checkout.infinitepay.io".freeze

@@ -52,7 +52,7 @@
 </div>
 
 <% if @booking_group.pending? && @booking_group.payment.present? %>
-  <%= link_to "Ver QR Code Pix →", pagamento_path(@booking_group.payment), class: "btn-cta" %>
+  <%= link_to "Ver pagamento →", pagamento_path(@booking_group.payment), class: "btn-cta" %>
 <% end %>
 
 <%# Diferença pendente (alteração de turno para valor maior) %>

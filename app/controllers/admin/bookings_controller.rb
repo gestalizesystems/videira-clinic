@@ -73,7 +73,7 @@ class Admin::BookingsController < Admin::BaseController
 
     if result.success?
       notice = if result.value[:charge_created]
-        "Turno alterado. Cobrança da diferença gerada — o cliente deve pagar via Pix na reserva."
+        "Turno alterado. Cobrança da diferença gerada — o cliente deve pagar na reserva."
       else
         "Turno alterado com sucesso."
       end

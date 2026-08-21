@@ -16,8 +16,9 @@ class Payments::WebhooksController < ActionController::Base
       return head :ok
     end
 
-    # Só processa Pix aprovado (pagamentos via cartão são ignorados — app é Pix only)
-    if payload["capture_method"] == "pix" && payload["paid_amount"].to_i > 0
+    # Processa Pix e cartão de crédito aprovados — o checkout InfinitePay
+    # oferece os dois métodos ao pagador, e ambos recebem o mesmo tratamento.
+    if Payment::CAPTURE_METHODS.include?(payload["capture_method"]) && payload["paid_amount"].to_i > 0
       if is_booking
         PaymentConfirmer.call_from_webhook(payload)
       elsif is_credit

@@ -12,7 +12,7 @@ class CreditPurchaseConfirmer < ApplicationService
         user:         @purchase.user,
         clinic:       @purchase.clinic,
         amount_cents: @purchase.amount_cents,
-        reason:       "Recarga via Pix"
+        reason:       "Recarga de crédito"
       )
       @purchase.update!(status: "paid", paid_at: Time.current, credit: credit)
     end

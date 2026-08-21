@@ -1,8 +1,8 @@
-<% content_for :title, "Pagamento via Pix" %>
+<% content_for :title, "Pagamento da Reserva" %>
 
 <%= render "shared/back_button", path: reservas_path %>
 
-<h1 class="text-2xl font-medium mb-2 text-vdc-primary">Pagamento via Pix</h1>
+<h1 class="text-2xl font-medium mb-2 text-vdc-primary">Pagamento da Reserva</h1>
 
 <%= turbo_stream_from "payment_#{@payment.id}" %>
 
