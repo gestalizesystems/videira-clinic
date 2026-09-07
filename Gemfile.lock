@@ -82,8 +82,8 @@ GEM
     benchmark (0.5.0)
     bigdecimal (4.1.2)
     bindex (0.8.1)
-    bootsnap (1.24.3)
-      msgpack (~> 1.2)
+    bootsnap (1.26.0)
+      msgpack (~> 1.5)
     brakeman (8.0.4)
       racc
     builder (3.3.0)
@@ -224,7 +224,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.0)
+    msgpack (1.8.4)
     multi_json (1.21.1)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
@@ -579,7 +579,7 @@ CHECKSUMS
   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
-  bootsnap (1.24.3) sha256=f7fa3d20597e2f0aa52b0a1aba83fb54d4f79e9c2e210ec4fa1e8895514dcad8
+  bootsnap (1.26.0) sha256=ca96237015e6cd74a02963d5821cf00ac5ea134653b323e8cd6d702a7718bf1b
   brakeman (8.0.4) sha256=7bf921fa9638544835df9aa7b3e720a9a72c0267f34f92135955edd80d4dcf6f
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
@@ -642,7 +642,7 @@ CHECKSUMS
   mini_magick (5.3.1) sha256=29395dfd76badcabb6403ee5aff6f681e867074f8f28ce08d78661e9e4a351c4
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
-  msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
+  msgpack (1.8.4) sha256=4411c22d350dd1c20250f7eada3cca2695438c2f769cf0782f0cd065d90a3e7b
   multi_json (1.21.1) sha256=e6126a31808e3b4d19f483c775ceac34df190dffa62adfb63a165ee14ba68080
   multi_xml (0.9.1) sha256=7ce766b59c17241ed62976caeae1fae9b2431b263398c35396239a68c4a64e57
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
