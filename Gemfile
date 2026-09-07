@@ -58,6 +58,6 @@ group :test do
   gem "capybara"
 end
 
-gem "resend", "~> 1.3"
+gem "resend", "~> 1.14"
 
 gem "google-apis-calendar_v3", ">= 0.54", "< 1.0"
